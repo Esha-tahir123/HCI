@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Registration Form</title>
+  <style>
+    body {
+      font-family: 'Raleway', sans-serif;
+      background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-ceoQCjc7xNYcuZH4DfeqOSzNH_Nq62CnTw&usqp=CAU"); /* Replace with your image path */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    form {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #15171a;
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    .error-message {
+      color: #d9534f;
+      font-size: 0.875em;
+      margin-top: 5px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      display: block;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #0b5ed7;
+    }
+  </style>
+</head>
+<body>
+  <form id="registrationForm" novalidate>
+    <h2>Registration Form</h2>
+
+    <div class="form-group">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" required>
+      <div class="error-message" id="error-firstName"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" required>
+      <div class="error-message" id="error-lastName"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <div class="error-message" id="error-email"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="program">Program:</label>
+      <select id="program" name="program" required>
+        <option value="">Please select</option>
+        <option value="BS">BS</option>
+        <option value="MS">MS</option>
+      </select>
+      <div class="error-message" id="error-program"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="course">Course:</label>
+      <select id="course" name="course" required>
+        <option value="">Please select</option>
+        <option value="BSE">BSE</option>
+        <option value="BCS">BCS</option>
+        <option value="BBA">BBA</option>
+      </select>
+      <div class="error-message" id="error-course"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="gender">Gender:</label>
+      <span style="display: flex; align-items: center;">
+              <input type="radio" id="male" name="gender" value="male" style="margin-right: 1px;"> <label for="male">Male</label>
+              <input type="radio" id="female" name="gender" value="female" style="margin-right: 1px;"> <label for="female">Female</label>
+            </span>
+            <div class="error-message" id="error-gender"></div>
+          </div>
+        
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" pattern="^0\d{10}$" required>
+            <div class="error-message" id="error-phoneNumber"></div>
+          </div>
+        
+          <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+            <div class="error-message" id="error-dob"></div>
+          </div>
+        
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="6">
+            <div class="error-message" id="error-password"></div>
+          </div>
+        
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <div class="error-message" id="error-confirmPassword"></div>
+          </div>
+        
+          <button type="submit">Submit</button>
+        <h3 style="color:black">  <a href="https://forms.gle/jeTAcPmPF6vN5Fh98" >Leave a Review</a></h2>
+        </form>
+        
+
+<script>
+document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting immediately
+
+    // Your validation script here
+    clearErrors(); // Clear previous errors
+
+    let isValid = true; // Flag to determine if the form is valid
+
+    // Helper function to validate each field
+    function validateField(field, regex, emptyMessage, invalidMessage) {
+        if (!field.value.trim()) {
+            document.getElementById('error-' + field.id).textContent = emptyMessage;
+            isValid = false;
+        } else if (regex && !regex.test(field.value.trim())) {
+            document.getElementById('error-' + field.id).textContent = invalidMessage;
+            isValid = false;
+        }
+    }
+
+    // Validate each field with appropriate regex and messages
+    validateField(document.getElementById('firstName'), /^[a-zA-Z]+$/, 'First name is required.', 'First name must contain only letters.');
+    validateField(document.getElementById('lastName'), /^[a-zA-Z]+$/, 'Last name is required.', 'Last name must contain only letters.');
+    validateField(document.getElementById('email'), /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Email is required.', 'Invalid email format.');
+    validateField(document.getElementById('program'), null, 'Program selection is required.', '');
+    validateField(document.getElementById('phoneNumber'), /^0\d{10}$/, 'Phone number is required.', 'Phone number must be 11 digits and start with 0.');
+
+    // Validate Date of Birth
+    const dobField = document.getElementById('dob');
+    if (!dobField.value) {
+        document.getElementById('error-dob').textContent = 'Date of birth is required.';
+        isValid = false;
+    } else {
+        const dob = new Date(dobField.value);
+        const today = new Date();
+        const age = today.getFullYear() - dob.getFullYear();
+        const m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate()) || age < 17 || dob.getFullYear() < 1998 || dob.getFullYear() > 2004) {
+            document.getElementById('error-dob').textContent = 'Invalid date of birth. Must be at least 17 years old and between 1998 and 2004.';
+            isValid = false;
+        }
+    }
+
+    // Validate Password
+    const passwordField = document.getElementById('password');
+    if (!passwordField.value.trim()) {
+        document.getElementById('error-password').textContent = 'Password is required.';
+        isValid = false;
+    } else if (passwordField.value.trim().length < 6) {
+        document.getElementById('error-password').textContent = 'Password must be at least 6 characters long.';
+        isValid = false;
+    }
+    const courseSelect = document.getElementById('course');
+  if (courseSelect.value === '') {
+    document.getElementById('error-course').textContent = 'Please select a course.';
+    isValid = false;
+  }
+  // Validate Gender (ensure at least one radio button is selected)
+  const genderRadios = document.querySelectorAll('input[name="gender"]');
+  let genderSelected = false;
+  for (const radio of genderRadios) {
+    if (radio.checked) {
+      genderSelected = true;
+      break;
+    }
+  }
+  if (!genderSelected) {
+    document.getElementById('error-gender').textContent = 'Please select your gender.';
+    isValid = false;
+  }
+
+    // Validate Confirm Password
+    const confirmPasswordField = document.getElementById('confirmPassword');
+    if (!confirmPasswordField.value.trim()) {
+        document.getElementById('error-confirmPassword').textContent = 'Confirming password is required.';
+        isValid = false;
+    } else if (passwordField.value.trim() !== confirmPasswordField.value.trim()) {
+        document.getElementById('error-confirmPassword').textContent = 'Passwords do not match.';
+        isValid = false;
+    }
+
+    // If the form is valid, you can proceed to submit it or handle it as needed
+    if (isValid) {
+        // Form is valid, proceed with form submission or further processing
+        alert('Form is valid. Implement form submission logic here.');
+    }
+});
+
+function clearErrors() {
+    document.querySelectorAll('.error-message').forEach(errorField => {
+        errorField.textContent = '';
+    });
+}
+</script>
+</body>
+</html>
